@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Bilheteria - Cinema</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    main {
+      margin: 20px;
+    }
+
+    .sala {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    .seat {
+      width: 30px;
+      height: 30px;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      margin: 3px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .seat.selected {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .btn-buy {
+      background-color: #4CAF50;
+      color: white;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cinema XYZ</h1>
+  </header>
+  <main>
+    <div id="sala1" class="sala">
+      <h2>Sala 1</h2>
+      <!-- Layout da Sala 1 será carregado aqui dinamicamente -->
+    </div>
+    <div id="sala2" class="sala">
+      <h2>Sala 2</h2>
+      <!-- Layout da Sala 2 será carregado aqui dinamicamente -->
+    </div>
+  </main>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const sala1Container = document.getElementById('sala1');
+      const sala2Container = document.getElementById('sala2');
+
+      const sala1Layout = createSalaLayout(5, 8, 'sala1'); // 5 linhas, 8 colunas
+      const sala2Layout = createSalaLayout(6, 10, 'sala2'); // 6 linhas, 10 colunas
+
+      sala1Container.appendChild(sala1Layout);
+      sala2Container.appendChild(sala2Layout);
+    });
+
+    function createSalaLayout(rows, cols, salaId) {
+      const salaLayout = document.createElement('div');
+      salaLayout.classList.add('sala-layout');
+
+      for (let i = 1; i <= rows; i++) {
+        for (let j = 1; j <= cols; j++) {
+          const seat = document.createElement('div');
+          seat.classList.add('seat');
+          seat.dataset.sala = salaId;
+          seat.dataset.row = i;
+          seat.dataset.col = j;
+          seat.addEventListener('click', selectSeat);
+          salaLayout.appendChild(seat);
+        }
+        salaLayout.appendChild(document.createElement('br')); // Adiciona uma quebra de linha após cada linha de assentos
+      }
+
+      return salaLayout;
+    }
+
+    function selectSeat() {
+      this.classList.toggle('selected');
+    }
+
+    function buyTicket() {
+      const selectedSeats = document.querySelectorAll('.sala .seat.selected');
+      const totalPrice = selectedSeats.length * 20;
+
+      // Implementar lógica de compra de bilhetes aqui
+      if (selectedSeats.length > 0) {
+        console.log(`Bilhete(s) comprado(s) para ${selectedSeats.length} assento(s) por R$${totalPrice}`);
+      } else {
+        console.log('Nenhum assento selecionado');
+      }
+    }
+  </script>
+</body>
+</html>
