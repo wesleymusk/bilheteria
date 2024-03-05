@@ -116,12 +116,15 @@
     function buyTicket() {
       const selectedSeats = document.querySelectorAll('.sala .seat.selected');
       const unavailableSeats = document.querySelectorAll('.sala .seat.unavailable');
-
+    
       // Marcar assentos já comprados como indisponíveis
-      unavailableSeats.forEach(seat => seat.classList.add('unavailable'));
-
+      unavailableSeats.forEach(seat => {
+        seat.classList.add('unavailable');
+        seat.style.backgroundColor = '#FF0000'; // Adicione esta linha para definir a cor de fundo como vermelha
+      });
+    
       const totalPrice = selectedSeats.length * 20;
-
+    
       // Implementar lógica de compra de bilhetes aqui
       if (selectedSeats.length > 0) {
         alert(`Bilhete(s) comprado(s) para ${selectedSeats.length} assento(s) por R$${totalPrice}`);
