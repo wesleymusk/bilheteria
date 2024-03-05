@@ -124,12 +124,12 @@
 
       // Implementar lógica de compra de bilhetes aqui
       if (selectedSeats.length > 0) {
-        console.log(`Bilhete(s) comprado(s) para ${selectedSeats.length} assento(s) por R$${totalPrice}`);
+        alert(`Bilhete(s) comprado(s) para ${selectedSeats.length} assento(s) por R$${totalPrice}`);
         // Adicione aqui a lógica para registrar a compra (por exemplo, enviar para um servidor)
         // Resetar seleção de assentos
         selectedSeats.forEach(seat => seat.classList.remove('selected'));
       } else {
-        console.log('Nenhum assento selecionado');
+        alert('Nenhum assento selecionado');
       }
     }
   </script>
