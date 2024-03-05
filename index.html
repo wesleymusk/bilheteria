@@ -43,6 +43,11 @@
       color: white;
     }
 
+    .seat.unavailable {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
     .btn-buy {
       background-color: #4CAF50;
       color: white;
@@ -68,6 +73,7 @@
       <h2>Sala 2</h2>
       <!-- Layout da Sala 2 será carregado aqui dinamicamente -->
     </div>
+    <button class="btn-buy" onclick="buyTicket()">Comprar</button>
   </main>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -102,16 +108,26 @@
     }
 
     function selectSeat() {
-      this.classList.toggle('selected');
+      if (!this.classList.contains('unavailable')) {
+        this.classList.toggle('selected');
+      }
     }
 
     function buyTicket() {
       const selectedSeats = document.querySelectorAll('.sala .seat.selected');
+      const unavailableSeats = document.querySelectorAll('.sala .seat.unavailable');
+
+      // Marcar assentos já comprados como indisponíveis
+      unavailableSeats.forEach(seat => seat.classList.add('unavailable'));
+
       const totalPrice = selectedSeats.length * 20;
 
       // Implementar lógica de compra de bilhetes aqui
       if (selectedSeats.length > 0) {
         console.log(`Bilhete(s) comprado(s) para ${selectedSeats.length} assento(s) por R$${totalPrice}`);
+        // Adicione aqui a lógica para registrar a compra (por exemplo, enviar para um servidor)
+        // Resetar seleção de assentos
+        selectedSeats.forEach(seat => seat.classList.remove('selected'));
       } else {
         console.log('Nenhum assento selecionado');
       }
